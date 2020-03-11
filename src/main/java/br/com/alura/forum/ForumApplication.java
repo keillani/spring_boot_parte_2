@@ -8,7 +8,7 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 //Para receber os parâmetros de ordenação e paginação diretamente nos métodos do controller, devemos habilitar o módulo SpringDataWebSupport, adicionando a anotação @EnableSpringDataWebSupport na classe ForumApplication
 //Para habilitar o uso de caches na aplicação, devemos adicionar a anotação @EnableCaching na classe ForumApplication;
-
+//Para habilitar o Swagger na API, devemos adicionar a anotação @EnableSwagger2
 @SpringBootApplication
 @EnableSpringDataWebSupport
 @EnableCaching

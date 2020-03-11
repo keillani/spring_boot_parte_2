@@ -13,9 +13,13 @@ import springfox.documentation.schema.ModelRef;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+
+//As configurações do Swagger devem ser feitas criando-se uma classe chamada SwaggerConfigurations e adicionando nela a anotação @Configuration
+
 @Configuration
 public class SwaggerConfigurations {
-	
+
+	//Para configurar quais endpoints e pacotes da API o Swagger deve gerar a documentação, devemos criar um método anotado com @Bean, que devolve um objeto do tipo Docket
 	@Bean
 	public Docket forumApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
