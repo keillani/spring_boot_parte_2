@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.com.alura.forum.modelo.Usuario;
 import br.com.alura.forum.repository.UsuarioRepository;
 
+//A lógica de autenticação, que consulta o usuário no banco de dados, deve implementar a interface UserDetailsService
 @Service
 public class AutenticacaoService implements UserDetailsService {
 	
