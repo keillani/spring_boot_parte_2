@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.alura.forum.config.security.TokenService;
 import br.com.alura.forum.controller.dto.TokenDto;
 import br.com.alura.forum.controller.form.LoginForm;
-
+//Para enviar o token JWT na requisição, é necessário adicionar o cabeçalho Authorization, passando como valor Bearer token
 @RestController
 @RequestMapping("/auth")
 public class AutenticacaoController {

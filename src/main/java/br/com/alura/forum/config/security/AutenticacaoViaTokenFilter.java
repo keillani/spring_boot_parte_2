@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import br.com.alura.forum.modelo.Usuario;
 import br.com.alura.forum.repository.UsuarioRepository;
 
+//Para criar um filtro no Spring, devemos criar uma classe que herda da classe OncePerRequestFilter
 public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 	
 	private TokenService tokenService;
@@ -41,9 +42,10 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter {
 		Long idUsuario = tokenService.getIdUsuario(token);
 		Usuario usuario = repository.findById(idUsuario).get();
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
-		SecurityContextHolder.getContext().setAuthentication(authentication);
+		SecurityContextHolder.getContext().setAuthentication(authentication); //Para indicar ao Spring Security que o cliente está autenticado, devemos utilizar a classe SecurityContextHolder
 	}
 
+	//Para recuperar o token JWT da requisição no filter, devemos chamar o método request.getHeader("Authorization")
 	private String recuperarToken(HttpServletRequest request) {
 		String token = request.getHeader("Authorization");
 		if (token == null || token.isEmpty() || !token.startsWith("Bearer ")) {

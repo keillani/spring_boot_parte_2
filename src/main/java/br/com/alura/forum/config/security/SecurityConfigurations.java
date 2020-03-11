@@ -59,7 +59,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.anyRequest().authenticated() //indica ao Spring Security para bloquear todos os endpoints que não foram liberados anteriormente com o método permitAll()
 		.and().csrf().disable()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//Para configurar a autenticação stateless no Spring Security
-		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+				// criar um filtro, que vai conter a lógica de recuperar o token do cabeçalho Authorization, validá-lo e autenticar o cliente
+		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class); //Para habilitar o filtro no Spring Security, devemos chamar o método
 	}
 	
 	
