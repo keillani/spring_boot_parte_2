@@ -45,6 +45,8 @@ public class TopicosController {
 
 	//Para realizar paginação com Spring Data JPA, devemos utilizar a interface Pageable
 	@GetMapping
+	//Para que o Spring guarde o retorno de um método no cache, devemos anotá-lo com @Cacheable
+	//Devemos utilizar cache apenas para as informações que nunca ou raramente são atualizadas no banco de dados
 	@Cacheable(value = "listaDeTopicos")
 	public Page<TopicoDto> lista(@RequestParam(required = false) String nomeCurso, 
 			@PageableDefault(sort = "dataCriacao", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
@@ -57,9 +59,11 @@ public class TopicosController {
 			return TopicoDto.converter(topicos);
 		}
 	}
-	
+
+	//Para utilizar o módulo de cache do Spring Boot, devemos adicioná-lo como dependência do projeto no arquivo pom.xml
 	@PostMapping
 	@Transactional
+	//Para o Spring invalidar algum cache após um determinado método ser chamado, devemos anotá-lo com @CacheEvict
 	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 		Topico topico = form.converter(cursoRepository);
