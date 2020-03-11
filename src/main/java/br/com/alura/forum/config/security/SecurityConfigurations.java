@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import br.com.alura.forum.repository.UsuarioRepository;
 //Para utilizar o módulo do Spring Security, devemos adicioná-lo como dependência do projeto no arquivo pom.xml
 //Para habilitar e configurar o controle de autenticação e autorização do projeto, devemos criar uma classe e anotá-la com @Configuration e @EnableWebSecurity
+//Para utilizar JWT na API, devemos adicionar a dependência da biblioteca jjwt no arquivo pom.xml do projeto
 @EnableWebSecurity
 @Configuration
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
@@ -32,6 +33,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	@Bean
+	//Para disparar manualmente o processo de autenticação no Spring Security, devemos utilizar a classe AuthenticationManager
+	//Para poder injetar o AuthenticationManager no controller, devemos criar um método anotado com @Bean, na classe SecurityConfigurations, que retorna uma chamada ao método super.authenticationManager()
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
@@ -55,7 +58,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
 		.anyRequest().authenticated() //indica ao Spring Security para bloquear todos os endpoints que não foram liberados anteriormente com o método permitAll()
 		.and().csrf().disable()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//Para configurar a autenticação stateless no Spring Security
 		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
 	}
 	

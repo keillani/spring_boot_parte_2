@@ -11,9 +11,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+
+//Para criar o token JWT, devemos utilizar a classe Jwts
 @Service
 public class TokenService {
-	
+	//O token tem um período de expiração, que pode ser definida no arquivo application.properties
+	//Para injetar uma propriedade do arquivo application.properties, devemos utilizar a anotação @Value
 	@Value("${forum.jwt.expiration}")
 	private String expiration;
 	
